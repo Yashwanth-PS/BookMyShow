@@ -25,7 +25,7 @@ public class ShowSeat extends BaseModel{
        M    :  1
    ShowSeat : Show -> M : 1
 
-    Seat : ShowSeat
-      1  :    M
-      1  :    1
+ShowSeat : Seat
+    1    :  1
+    M    :  1
 ShowSeat : Seat -> M : 1 */

@@ -25,3 +25,7 @@
 - PaymentMethod
 - Payment - Ticket
 - User - Ticket
+
+**Repository**
+
+1) MovieRepository
