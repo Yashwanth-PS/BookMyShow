@@ -1,6 +1,6 @@
 package com.bookmyshow.repository;
 
-import com.Project.BookMyShow.models.Show;
+import com.bookmyshow.model.Show;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
