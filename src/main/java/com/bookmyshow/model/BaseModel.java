@@ -15,7 +15,7 @@ public abstract class BaseModel {
     @Id // Tells JPA that the attribute is the primary key of the table
     @GeneratedValue(strategy = GenerationType.AUTO) // Auto Increment ID
     @Column(name = "ID")
-    private int id;
+    private long id;
 
     /* @CreatedDate // Mark as a Audit Column
     @Temporal(value = TemporalType.TIMESTAMP) // Time of Creation and Update should be Automated
