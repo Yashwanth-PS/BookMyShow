@@ -29,3 +29,7 @@
 **Repository**
 
 1) MovieRepository
+2) SeatRepository
+3) ShowRepository
+4) ShowSeatRepository
+5) TicketRepository
