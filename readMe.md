@@ -28,12 +28,17 @@
 
 **Repository**
 
-1) MovieRepository
-2) SeatRepository
-3) ShowRepository
-4) ShowSeatRepository
-5) TicketRepository
-6) UserRepository
+1) ActorRepository
+2) AuditoriumRepository
+3) CityRepository
+4) MovieRepository
+5) PaymentRepository
+6) SeatRepository
+7) ShowRepository
+8) ShowSeatRepository
+9) TheatreRepository
+10) TicketRepository
+11) UserRepository
 
 **Service**
 
