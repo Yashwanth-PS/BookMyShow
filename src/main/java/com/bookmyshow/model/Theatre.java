@@ -1,11 +1,9 @@
 package com.bookmyshow.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +11,6 @@ import java.util.List;
 public class Theatre extends BaseModel{
     private String name;
     private String address;
-    @OneToMany
-    private List<Auditorium> auditoriums;
+    @ManyToOne
+    private City city;
 }

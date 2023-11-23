@@ -34,3 +34,7 @@
 4) ShowSeatRepository
 5) TicketRepository
 6) UserRepository
+
+**Service**
+
+1) Initialisation Service

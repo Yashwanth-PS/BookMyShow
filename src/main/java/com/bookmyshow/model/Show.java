@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "movie_show")
 public class Show extends BaseModel{
     private LocalDateTime startTime;
     private LocalDateTime endTime;

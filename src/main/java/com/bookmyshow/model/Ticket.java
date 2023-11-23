@@ -20,6 +20,8 @@ public class Ticket extends BaseModel{
     private Show show;
     @Enumerated(EnumType.STRING)
     private TicketStatus ticketStatus;
+    @ManyToOne
+    private User user;
 }
 
 /* Suppose, Ticket1 bought seat1 then Ticket1 was cancelled,

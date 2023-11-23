@@ -4,6 +4,7 @@ import com.bookmyshow.model.BaseModel;
 import com.bookmyshow.model.Ticket;
 import com.bookmyshow.model.constants.PaymentMethod;
 import com.bookmyshow.model.constants.SeatStatus;
+import com.bookmyshow.model.constants.ShowSeatStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -21,7 +22,7 @@ public class Payment extends BaseModel {
     private double amount;
     private String referenceId;
     @Enumerated(EnumType.STRING)
-    private SeatStatus seatStatus;
+    private ShowSeatStatus showSeatStatus;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @ManyToOne
