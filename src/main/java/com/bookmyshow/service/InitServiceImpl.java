@@ -12,40 +12,33 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Service
-public class InitializationService {
+public class InitServiceImpl implements InitService{
 
-    @Autowired
     private CityRepository cityRepository;
-
-    @Autowired
     private TheatreRepository theatreRepository;
-
-    @Autowired
     private MovieRepository movieRepository;
-
-    @Autowired
     private ActorRepository actorRepository;
-
-    @Autowired
     private ShowRepository showRepository;
-
-    @Autowired
     private AuditoriumRepository auditoriumRepository;
-
-    @Autowired
     private SeatRepository seatRepository;
-
-    @Autowired
     private ShowSeatRepository showSeatRepository;
-
-    @Autowired
     private PaymentRepository paymentRepository;
-
-    @Autowired
     private TicketRepository ticketRepository;
-
-    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    public InitServiceImpl(CityRepository cityRepository, TheatreRepository theatreRepository, MovieRepository movieRepository, ActorRepository actorRepository, ShowRepository showRepository, AuditoriumRepository auditoriumRepository, SeatRepository seatRepository, ShowSeatRepository showSeatRepository, PaymentRepository paymentRepository, TicketRepository ticketRepository, UserRepository userRepository) {
+        this.cityRepository = cityRepository;
+        this.theatreRepository = theatreRepository;
+        this.movieRepository = movieRepository;
+        this.actorRepository = actorRepository;
+        this.showRepository = showRepository;
+        this.auditoriumRepository = auditoriumRepository;
+        this.seatRepository = seatRepository;
+        this.showSeatRepository = showSeatRepository;
+        this.paymentRepository = paymentRepository;
+        this.ticketRepository = ticketRepository;
+        this.userRepository = userRepository;
+    }
 
     @PostConstruct // Indicates that it is initialization method
     public void initializeData() {
