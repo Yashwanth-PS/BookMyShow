@@ -13,18 +13,17 @@ import java.util.Optional;
 
 @Service
 public class InitServiceImpl implements InitService{
-
-    private CityRepository cityRepository;
-    private TheatreRepository theatreRepository;
-    private MovieRepository movieRepository;
-    private ActorRepository actorRepository;
-    private ShowRepository showRepository;
-    private AuditoriumRepository auditoriumRepository;
-    private SeatRepository seatRepository;
-    private ShowSeatRepository showSeatRepository;
-    private PaymentRepository paymentRepository;
-    private TicketRepository ticketRepository;
-    private UserRepository userRepository;
+    private final CityRepository cityRepository;
+    private final TheatreRepository theatreRepository;
+    private final MovieRepository movieRepository;
+    private final ActorRepository actorRepository;
+    private final ShowRepository showRepository;
+    private final AuditoriumRepository auditoriumRepository;
+    private final SeatRepository seatRepository;
+    private final ShowSeatRepository showSeatRepository;
+    private final PaymentRepository paymentRepository;
+    private final TicketRepository ticketRepository;
+    private final UserRepository userRepository;
     @Autowired
     public InitServiceImpl(CityRepository cityRepository, TheatreRepository theatreRepository, MovieRepository movieRepository, ActorRepository actorRepository, ShowRepository showRepository, AuditoriumRepository auditoriumRepository, SeatRepository seatRepository, ShowSeatRepository showSeatRepository, PaymentRepository paymentRepository, TicketRepository ticketRepository, UserRepository userRepository) {
         this.cityRepository = cityRepository;
@@ -145,13 +144,12 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-
-
     public void initializeUser() {
         for(int id = 1; id <= 10; id++) {
             User user = new User();
             user.setName("SampleUser" + id);
             user.setEmail("user" + id +"@example.com");
+            user.setPassword("user" + id +"pass");
             userRepository.save(user);
         }
     }
