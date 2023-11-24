@@ -55,7 +55,7 @@ public class InitServiceImpl implements InitService{
         initializePayment();
     }
 
-    private void initializeCity() {
+    public void initializeCity() {
         for(int id = 1; id <= 10; id++) {
             City city = new City();
             city.setName("Sample City" + id);
@@ -63,7 +63,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeTheatre() {
+    public void initializeTheatre() {
         for (long id = 1; id <= 10; id++) {
             Optional<City> optionalCity = cityRepository.findById(id);
             if (optionalCity.isPresent()) {
@@ -79,7 +79,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    public void  initializeActor(){
+    public void initializeActor(){
         for(int id = 1; id <= 10; id++){
             Actor actor = new Actor();
             actor.setName("Sample Actor" + id);
@@ -87,7 +87,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeMovie() {
+    public void initializeMovie() {
         for(long id = 1; id <= 10; id++) {
             Optional<Actor> optionalActor = actorRepository.findById(id);
             Movie movie = new Movie();
@@ -99,7 +99,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeAuditorium() {
+    public void initializeAuditorium() {
         for(long id = 1; id <= 10; id++) {
             Auditorium auditorium = new Auditorium();
             auditorium.setName("Sample Auditorium" + id);
@@ -109,7 +109,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeSeat() {
+    public void initializeSeat() {
         for(int id = 1; id <= 100; id++) {
             Seat seat = new Seat();
             seat.setSeatNumber(""+id);
@@ -119,7 +119,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeShow() {
+    public void initializeShow() {
         for(long id = 1; id <= 10; id++) {
             Optional<Movie> movie = movieRepository.findById(id);
             Optional<Auditorium> auditorium = auditoriumRepository.findById(id);
@@ -132,7 +132,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeShowSeat() {
+    public void initializeShowSeat() {
         for(long id = 1; id <= 10; id++) {
             Optional<Show> show = showRepository.findById(id);
             Optional<Seat> seat = seatRepository.findById(id);
@@ -147,7 +147,7 @@ public class InitServiceImpl implements InitService{
 
 
 
-    private void initializeUser() {
+    public void initializeUser() {
         for(int id = 1; id <= 10; id++) {
             User user = new User();
             user.setName("SampleUser" + id);
@@ -156,7 +156,7 @@ public class InitServiceImpl implements InitService{
         }
     }
 
-    private void initializeTicket() {
+    public void initializeTicket() {
         for(long id = 1; id <= 10; id++) {
             Optional<ShowSeat> showSeat = showSeatRepository.findById(id);
             Optional<Show> show = showRepository.findById(id);
@@ -170,7 +170,7 @@ public class InitServiceImpl implements InitService{
             ticketRepository.save(ticket);
         }
     }
-    private void initializePayment() {
+    public void initializePayment() {
         for(long id = 1; id <= 10; id++) {
             Optional<ShowSeat> showSeat = showSeatRepository.findById(id);
             Payment payment = new Payment();
