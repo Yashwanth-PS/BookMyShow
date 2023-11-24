@@ -1,5 +1,6 @@
 package com.bookmyshow.service;
 
+import com.bookmyshow.exception.InvalidCredentialException;
 import com.bookmyshow.exception.UserAlreadyExistsException;
 import com.bookmyshow.model.User;
 import com.bookmyshow.repository.UserRepository;
