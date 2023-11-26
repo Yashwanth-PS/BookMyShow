@@ -14,5 +14,4 @@ public class UserSignUpResponseDTO {
     private String email;
     private int responseCode;
     private String responseMessage;
-    private List<Ticket> tickets; // TODO: Change ticket to TicketResponse DTO
 }

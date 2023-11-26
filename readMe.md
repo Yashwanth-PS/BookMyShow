@@ -40,6 +40,14 @@
 10) TicketRepository
 11) UserRepository
 
+**DTOs**
+
+1) UserSignInRequestDTO
+2) UserSignInResponseDTO
+3) UserSignUpRequestDTO
+4) UserSignUpResponseDTO
+
 **Service**
 
 1) Initialisation Service
+2) UserService

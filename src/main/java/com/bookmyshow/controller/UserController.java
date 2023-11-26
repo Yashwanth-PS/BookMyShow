@@ -2,6 +2,8 @@ package com.bookmyshow.controller;
 
 import com.bookmyshow.dto.UserSignInRequestDTO;
 import com.bookmyshow.dto.UserSignInResponseDTO;
+import com.bookmyshow.dto.UserSignUpRequestDTO;
+import com.bookmyshow.dto.UserSignUpResponseDTO;
 import com.bookmyshow.model.User;
 import com.bookmyshow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,6 @@ public class UserController {
             responseDTO.setId(user.getId());
             responseDTO.setName(user.getName());
             responseDTO.setEmail(user.getEmail());
-            responseDTO.setTickets(user.getTickets());
             responseDTO.setResponseCode(200);
             responseDTO.setResponseMessage("SUCCESS");
 
