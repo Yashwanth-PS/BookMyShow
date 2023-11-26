@@ -1,5 +1,6 @@
 package com.bookmyshow.controller;
 
+import com.bookmyshow.controller.utils.UserControllerUtil;
 import com.bookmyshow.dto.UserSignInRequestDTO;
 import com.bookmyshow.dto.UserSignInResponseDTO;
 import com.bookmyshow.dto.UserSignUpRequestDTO;
