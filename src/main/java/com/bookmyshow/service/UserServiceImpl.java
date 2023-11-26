@@ -24,29 +24,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String email, String password) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-
         User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User with given email does not exist: " + email));
-
         if (Objects.equals(user.getPassword(), password)) {
             return user;
         } else {
             throw new InvalidCredentialException("Invalid credentials for user with email: " + email);
         }
     }
-
     @Override
     public User signUp(String name, String email, String password) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-
-        optionalUser.ifPresent(u -> {
-            throw new UserAlreadyExistsException("User with given email already exists: " + email);
-        });
-
+        optionalUser.ifPresent(u -> {throw new UserAlreadyExistsException("User with given email already exists: " + email);});
         User newUser = new User();
         newUser.setPassword(password);
         newUser.setName(name);
         newUser.setEmail(email);
-
         return userRepository.save(newUser);
     }
 }

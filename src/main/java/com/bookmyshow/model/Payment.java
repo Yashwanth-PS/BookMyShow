@@ -1,9 +1,6 @@
 package com.bookmyshow.model;
 
-import com.bookmyshow.model.BaseModel;
-import com.bookmyshow.model.Ticket;
 import com.bookmyshow.model.constants.PaymentMethod;
-import com.bookmyshow.model.constants.SeatStatus;
 import com.bookmyshow.model.constants.ShowSeatStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

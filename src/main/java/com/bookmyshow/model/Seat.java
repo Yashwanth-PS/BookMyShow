@@ -1,6 +1,5 @@
 package com.bookmyshow.model;
 
-import com.bookmyshow.model.BaseModel;
 import com.bookmyshow.model.constants.SeatStatus;
 import com.bookmyshow.model.constants.SeatType;
 import jakarta.persistence.Entity;

@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class UserSignUpResponseDTO {
-    private Long id;
     private String name;
     private String email;
     private int responseCode;
