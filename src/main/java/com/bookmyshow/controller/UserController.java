@@ -26,19 +26,16 @@ public class UserController {
         UserSignUpResponseDTO responseDTO = new UserSignUpResponseDTO();
         try {
             UserControllerUtil.validateUserSignUpRequestDTO(userSignUpRequestDTO);
-            User user = userService.signUp(userSignUpRequestDTO.getName(),
-                                           userSignUpRequestDTO.getEmail(),
-                                           userSignUpRequestDTO.getPassword());
-            responseDTO.setName(user.getName());
-            responseDTO.setEmail(user.getEmail());
-            responseDTO.setResponseCode(200);
-            responseDTO.setResponseMessage("SUCCESS");
+            User user = userService.signUp(
+                    userSignUpRequestDTO.getName(),
+                    userSignUpRequestDTO.getEmail(),
+                    userSignUpRequestDTO.getPassword()
+            );
+            responseDTO = UserControllerUtil.convertUserToUserResponseDTO(user);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
-            responseDTO.setName("Please use a different email");
-            responseDTO.setEmail("Please use a different email");
             responseDTO.setResponseCode(500);
-            responseDTO.setResponseMessage("User Already Exists");
+            responseDTO.setResponseMessage("Please Use a Valid Email and Password");
             return ResponseEntity.status(500).body(responseDTO);
         }
     }
