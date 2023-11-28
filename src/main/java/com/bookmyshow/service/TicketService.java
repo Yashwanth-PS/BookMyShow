@@ -1,5 +1,6 @@
 package com.bookmyshow.service;
 
+import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.model.Ticket;
 
 import java.util.List;
