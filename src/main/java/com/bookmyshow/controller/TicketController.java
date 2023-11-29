@@ -1,6 +1,8 @@
 package com.bookmyshow.controller;
 
+import com.bookmyshow.dto.TicketRequestDTO;
 import com.bookmyshow.exception.ShowSeatNotAvailableException;
+import com.bookmyshow.exception.TicketNotFoundException;
 import com.bookmyshow.model.Ticket;
 import com.bookmyshow.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class TicketController {
     private TicketService ticketService;
 
     @PostMapping("/book")
-    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody BookTicketRequestDTO bookTicketRequestDTO) throws ShowSeatAlreadyBookedException, ShowSeatNotAvailableException {
+    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketRequestDTO bookTicketRequestDTO) throws ShowSeatAlreadyBookedException, ShowSeatNotAvailableException {
         Ticket ticket = ticketService.bookTicket(bookTicketRequestDTO.getUserId(), bookTicketRequestDTO.getShowSeatIds(), bookTicketRequestDTO.getShowId());
 
         TicketResponseDTO ticketResponse = new TicketResponseDTO();
