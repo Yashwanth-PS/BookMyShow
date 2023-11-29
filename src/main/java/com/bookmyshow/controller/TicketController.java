@@ -2,8 +2,10 @@ package com.bookmyshow.controller;
 
 import com.bookmyshow.dto.TicketRequestDTO;
 import com.bookmyshow.dto.TicketResponseDTO;
+import com.bookmyshow.exception.ShowSeatAlreadyBookedException;
 import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.exception.TicketNotFoundException;
+import com.bookmyshow.exception.UserNotFoundException;
 import com.bookmyshow.model.Ticket;
 import com.bookmyshow.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
