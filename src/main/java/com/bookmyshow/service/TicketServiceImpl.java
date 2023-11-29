@@ -3,11 +3,9 @@ package com.bookmyshow.service;
 import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.exception.TicketNotFoundException;
 import com.bookmyshow.exception.UserNotFoundException;
-import com.bookmyshow.model.Show;
-import com.bookmyshow.model.ShowSeat;
-import com.bookmyshow.model.Ticket;
-import com.bookmyshow.model.User;
+import com.bookmyshow.model.*;
 import com.bookmyshow.model.constants.ShowSeatStatus;
+import com.bookmyshow.model.constants.TicketStatus;
 import com.bookmyshow.repository.ShowRepository;
 import com.bookmyshow.repository.ShowSeatRepository;
 import com.bookmyshow.repository.TicketRepository;
@@ -82,21 +80,22 @@ public class TicketServiceImpl implements TicketService{
             throw new TicketNotFoundException("Ticket for given ID is not found");
         }
         Ticket ticket = ticketOptional.get();
-        ticket.setBookingStatus(BookingStatus.CANCELLED);
+        ticket.setTicketStatus(TicketStatus.CANCELLED);
         for(ShowSeat showSeat: ticket.getShowSeats()){
             showSeat.setShowSeatStatus(ShowSeatStatus.AVAILABLE);
             showSeatRepository.save(showSeat);
         }
         ticketRepository.save(ticket);
+        /*
         for (Payment p : ticket.getPayments()) {
             p.getRefNo();
             // send a message to 3rd party with payment reference number for refund
-        }
+        } */
         return ticket;
     }
 
     @Override
-    public Ticket transferTicket(Long ticketId, Long fromUserId, Long toUserId) {
+    public Ticket transferTicket(Long ticketId, Long fromUserId, Long toUserId) { /*
         Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
         if(ticketOptional.isEmpty()){
             throw new TicketNotFoundException("Ticket for given ID is not found");
@@ -115,11 +114,13 @@ public class TicketServiceImpl implements TicketService{
 
         User toUser = toUserOptional.get();
         bookedTicketHistory = toUser.getTickets();
+
         bookedTicketHistory.add(ticket);
         toUser = userRepository.save(toUser);
 
         ticket.setUser(toUser);
-        return ticketRepository.save(ticket);
+        return ticketRepository.save(ticket); */
+        return null;
     }
 
     private boolean paymentCheck(){
@@ -131,9 +132,9 @@ public class TicketServiceImpl implements TicketService{
         ticket.setUser(user);
         ticket.setShow(show);
         ticket.setShowSeats(showSeats);
-        ticket.setAmount(amount);
-        ticket.setBookedAt(LocalDateTime.now());
-        ticket.setBookingStatus(BookingStatus.CONFIRMED);
+        ticket.setTotalAmount(amount);
+        ticket.setTimeOfBooking(LocalDateTime.now());
+        ticket.setTicketStatus(TicketStatus.BOOKED);
         return ticketRepository.save(ticket);
     }
 }
