@@ -1,6 +1,7 @@
 package com.bookmyshow.controller;
 
 import com.bookmyshow.dto.TicketRequestDTO;
+import com.bookmyshow.dto.TicketResponseDTO;
 import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.exception.TicketNotFoundException;
 import com.bookmyshow.model.Ticket;
