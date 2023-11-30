@@ -25,6 +25,11 @@ public class TicketController {
 
         TicketResponseDTO ticketResponse = new TicketResponseDTO();
         // Set ticketResponse properties based on the booked ticket
+        ticketResponse.setTimeOfShow(ticket.getShow().getStartTime());
+        ticketResponse.setMovieName(ticket.getShow().getMovie().getName());
+        ticketResponse.setTotalAmount(ticket.getTotalAmount());
+        ticketResponse.setAuditoriumName(ticket.getShow().getAuditorium().getName());
+        ticketResponse.setSeatNumbers(ticket.getShowSeats());
 
         return ResponseEntity.ok(ticketResponse);
     }

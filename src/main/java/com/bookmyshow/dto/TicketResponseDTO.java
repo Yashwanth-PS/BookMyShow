@@ -1,5 +1,6 @@
 package com.bookmyshow.dto;
 
+import com.bookmyshow.model.ShowSeat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class TicketResponseDTO {
     private double totalAmount;
     private LocalDateTime timeOfShow;
-    private List<String> seatNumbers;
+    private List<ShowSeat> seatNumbers;
     private String movieName;
     private String auditoriumName;
 }
