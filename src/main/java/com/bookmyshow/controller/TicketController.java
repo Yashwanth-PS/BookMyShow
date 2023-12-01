@@ -6,11 +6,15 @@ import com.bookmyshow.exception.ShowSeatAlreadyBookedException;
 import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.exception.TicketNotFoundException;
 import com.bookmyshow.exception.UserNotFoundException;
+import com.bookmyshow.model.ShowSeat;
 import com.bookmyshow.model.Ticket;
 import com.bookmyshow.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/ticket")
@@ -29,15 +33,29 @@ public class TicketController {
         ticketResponse.setMovieName(ticket.getShow().getMovie().getName());
         ticketResponse.setTotalAmount(ticket.getTotalAmount());
         ticketResponse.setAuditoriumName(ticket.getShow().getAuditorium().getName());
-        ticketResponse.setSeatNumbers(ticket.getShowSeats());
-
+        List<String> seatNumber = new ArrayList<>();
+        for(ShowSeat seat : ticket.getShowSeats()) {
+            seatNumber.add(seat.getSeat().getSeatNumber());
+        }
+        ticketResponse.setSeatNumbers(seatNumber);
         return ResponseEntity.ok(ticketResponse);
     }
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<Ticket> getTicket(@PathVariable Long ticketId) throws TicketNotFoundException {
+    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Long ticketId) throws TicketNotFoundException {
         Ticket ticket = ticketService.getTicket(ticketId);
-        return ResponseEntity.ok(ticket);
+        TicketResponseDTO ticketResponse = new TicketResponseDTO();
+        // Set ticketResponse properties based on the booked ticket
+        ticketResponse.setTimeOfShow(ticket.getShow().getStartTime());
+        ticketResponse.setMovieName(ticket.getShow().getMovie().getName());
+        ticketResponse.setTotalAmount(ticket.getTotalAmount());
+        ticketResponse.setAuditoriumName(ticket.getShow().getAuditorium().getName());
+        List<String> seatNumber = new ArrayList<>();
+        for(ShowSeat seat : ticket.getShowSeats()) {
+            seatNumber.add(seat.getSeat().getSeatNumber());
+        }
+        ticketResponse.setSeatNumbers(seatNumber);
+        return ResponseEntity.ok(ticketResponse);
     }
 
     @PostMapping("/cancel/{ticketId}")
@@ -53,7 +71,15 @@ public class TicketController {
         Ticket transferredTicket = ticketService.transferTicket(ticketId, fromUserId, toUserId);
         return ResponseEntity.ok(transferredTicket);
     }
-
     // Additional methods as needed for your application
-
 }
+
+/* Book Ticket --> Post - http://localhost:8181/api/ticket/book
+{
+  "userId": 1,
+  "showSeatIds": [1, 2, 3],
+  "showId": 1
+}
+
+Get Ticket --> GET - http://localhost:8181/api/ticket/1
+*/

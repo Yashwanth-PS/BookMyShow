@@ -12,7 +12,7 @@ import java.util.List;
 public class TicketResponseDTO {
     private double totalAmount;
     private LocalDateTime timeOfShow;
-    private List<ShowSeat> seatNumbers;
+    private List<String> seatNumbers;
     private String movieName;
     private String auditoriumName;
 }
