@@ -46,8 +46,16 @@
 2) UserSignInResponseDTO
 3) UserSignUpRequestDTO
 4) UserSignUpResponseDTO
+5) TicketRequestDTO
+6) TicketResponseDTO
 
 **Service**
 
 1) Initialisation Service
 2) UserService
+3) TicketService
+
+**Controller**
+
+1) UserController
+2) TicketController
