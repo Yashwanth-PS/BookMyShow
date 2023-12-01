@@ -5,6 +5,7 @@ import com.bookmyshow.dto.UserSignInRequestDTO;
 import com.bookmyshow.dto.UserSignInResponseDTO;
 import com.bookmyshow.dto.UserSignUpRequestDTO;
 import com.bookmyshow.dto.UserSignUpResponseDTO;
+import com.bookmyshow.mapper.Mapper;
 import com.bookmyshow.model.User;
 import com.bookmyshow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserController {
                     userSignUpRequestDTO.getEmail(),
                     userSignUpRequestDTO.getPassword()
             );
-            responseDTO = UserControllerUtil.convertUserToUserResponseDTO(user);
+            responseDTO = Mapper.convertUserToUserResponseDTO(user);
             return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
             responseDTO.setResponseCode(500);
