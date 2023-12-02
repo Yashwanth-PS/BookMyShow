@@ -59,9 +59,20 @@ public class TicketController {
     }
 
     @PostMapping("/cancel/{ticketId}")
-    public ResponseEntity<Ticket> cancelTicket(@PathVariable Long ticketId) {
+    public ResponseEntity<TicketResponseDTO> cancelTicket(@PathVariable Long ticketId) {
         Ticket canceledTicket = ticketService.cancelTicket(ticketId);
-        return ResponseEntity.ok(canceledTicket);
+        TicketResponseDTO ticketResponse = new TicketResponseDTO();
+        // Set ticketResponse properties based on the booked ticket
+        ticketResponse.setTimeOfShow(canceledTicket.getShow().getStartTime());
+        ticketResponse.setMovieName(canceledTicket.getShow().getMovie().getName());
+        ticketResponse.setTotalAmount(canceledTicket.getTotalAmount());
+        ticketResponse.setAuditoriumName(canceledTicket.getShow().getAuditorium().getName());
+        List<String> seatNumber = new ArrayList<>();
+        for(ShowSeat seat : canceledTicket.getShowSeats()) {
+            seatNumber.add(seat.getSeat().getSeatNumber());
+        }
+        ticketResponse.setSeatNumbers(seatNumber);
+        return ResponseEntity.ok(ticketResponse);
     }
 
     @PostMapping("/transfer/{ticketId}/{fromUserId}/{toUserId}")
@@ -81,5 +92,9 @@ public class TicketController {
   "showId": 1
 }
 
-Get Ticket --> GET - http://localhost:8181/api/ticket/1
+Get Ticket --> GET - http://localhost:8181/api/ticket/11
+
+Cancel Ticket --> POST - http://localhost:8181/api/ticket/cancel/11
+
+Transfer Ticket --> POST - http://localhost:8181/api/ticket/transfer/10/10/9
 */

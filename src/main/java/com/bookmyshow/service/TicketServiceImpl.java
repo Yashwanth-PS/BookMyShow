@@ -86,7 +86,7 @@ public class TicketServiceImpl implements TicketService{
             showSeatRepository.save(showSeat);
         }
         ticketRepository.save(ticket);
-        /*
+        /* Logic to revert the Payment
         for (Payment p : ticket.getPayments()) {
             p.getRefNo();
             // send a message to 3rd party with payment reference number for refund
@@ -119,7 +119,8 @@ public class TicketServiceImpl implements TicketService{
         toUser = userRepository.save(toUser);
 
         ticket.setUser(toUser);
-        return ticketRepository.save(ticket); */
+        return ticketRepository.save(ticket);
+        */
         return null;
     }
 
