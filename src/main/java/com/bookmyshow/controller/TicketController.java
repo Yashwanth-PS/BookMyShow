@@ -2,76 +2,57 @@ package com.bookmyshow.controller;
 
 import com.bookmyshow.dto.TicketRequestDTO;
 import com.bookmyshow.dto.TicketResponseDTO;
-import com.bookmyshow.exception.ShowSeatAlreadyBookedException;
-import com.bookmyshow.exception.ShowSeatNotAvailableException;
 import com.bookmyshow.exception.TicketNotFoundException;
 import com.bookmyshow.exception.UserNotFoundException;
-import com.bookmyshow.model.ShowSeat;
 import com.bookmyshow.model.Ticket;
 import com.bookmyshow.service.TicketService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.bookmyshow.controller.utils.ControllerUtil.validateTicketId;
+import static com.bookmyshow.mapper.Mapper.convertTicketToTicketResponseDTO;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/ticket")
+@RequestMapping("/api/v1/ticket")
 public class TicketController {
+    private final TicketService ticketService;
 
-    @Autowired
-    private TicketService ticketService;
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @PostMapping("/book")
-    public ResponseEntity<TicketResponseDTO> createTicket(@RequestBody TicketRequestDTO bookTicketRequestDTO) throws ShowSeatAlreadyBookedException, ShowSeatNotAvailableException {
-        Ticket ticket = ticketService.bookTicket(bookTicketRequestDTO.getUserId(), bookTicketRequestDTO.getShowSeatIds(), bookTicketRequestDTO.getShowId());
-
-        TicketResponseDTO ticketResponse = new TicketResponseDTO();
-        // Set ticketResponse properties based on the booked ticket
-        ticketResponse.setTimeOfShow(ticket.getShow().getStartTime());
-        ticketResponse.setMovieName(ticket.getShow().getMovie().getName());
-        ticketResponse.setTotalAmount(ticket.getTotalAmount());
-        ticketResponse.setAuditoriumName(ticket.getShow().getAuditorium().getName());
-        List<String> seatNumber = new ArrayList<>();
-        for(ShowSeat seat : ticket.getShowSeats()) {
-            seatNumber.add(seat.getSeat().getSeatNumber());
+    public ResponseEntity<TicketResponseDTO> bookTicket(@RequestBody TicketRequestDTO bookTicketRequestDTO) {
+        try {
+            Ticket ticket = ticketService.bookTicket(bookTicketRequestDTO.getUserId(), bookTicketRequestDTO.getShowSeatIds(), bookTicketRequestDTO.getShowId());
+            TicketResponseDTO ticketResponse = convertTicketToTicketResponseDTO(ticket);
+            return ResponseEntity.ok(ticketResponse);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
-        ticketResponse.setSeatNumbers(seatNumber);
-        return ResponseEntity.ok(ticketResponse);
     }
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Long ticketId) throws TicketNotFoundException {
-        Ticket ticket = ticketService.getTicket(ticketId);
-        TicketResponseDTO ticketResponse = new TicketResponseDTO();
-        // Set ticketResponse properties based on the booked ticket
-        ticketResponse.setTimeOfShow(ticket.getShow().getStartTime());
-        ticketResponse.setMovieName(ticket.getShow().getMovie().getName());
-        ticketResponse.setTotalAmount(ticket.getTotalAmount());
-        ticketResponse.setAuditoriumName(ticket.getShow().getAuditorium().getName());
-        List<String> seatNumber = new ArrayList<>();
-        for(ShowSeat seat : ticket.getShowSeats()) {
-            seatNumber.add(seat.getSeat().getSeatNumber());
+    public ResponseEntity<TicketResponseDTO> getTicket(@PathVariable Long ticketId) {
+        if (validateTicketId(ticketId)) {
+            log.error("Invalid ticketId: {}", ticketId);
+            return ResponseEntity.badRequest().build();
         }
-        ticketResponse.setSeatNumbers(seatNumber);
-        return ResponseEntity.ok(ticketResponse);
+        try {
+            Ticket ticket = ticketService.getTicket(ticketId);
+            TicketResponseDTO ticketResponse = convertTicketToTicketResponseDTO(ticket);
+            return ResponseEntity.ok(ticketResponse);
+        } catch (TicketNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/cancel/{ticketId}")
     public ResponseEntity<TicketResponseDTO> cancelTicket(@PathVariable Long ticketId) {
         Ticket canceledTicket = ticketService.cancelTicket(ticketId);
-        TicketResponseDTO ticketResponse = new TicketResponseDTO();
-        // Set ticketResponse properties based on the booked ticket
-        ticketResponse.setTimeOfShow(canceledTicket.getShow().getStartTime());
-        ticketResponse.setMovieName(canceledTicket.getShow().getMovie().getName());
-        ticketResponse.setTotalAmount(canceledTicket.getTotalAmount());
-        ticketResponse.setAuditoriumName(canceledTicket.getShow().getAuditorium().getName());
-        List<String> seatNumber = new ArrayList<>();
-        for(ShowSeat seat : canceledTicket.getShowSeats()) {
-            seatNumber.add(seat.getSeat().getSeatNumber());
-        }
-        ticketResponse.setSeatNumbers(seatNumber);
+        TicketResponseDTO ticketResponse = convertTicketToTicketResponseDTO(canceledTicket);
         return ResponseEntity.ok(ticketResponse);
     }
 
