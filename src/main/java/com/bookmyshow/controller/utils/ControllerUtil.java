@@ -1,15 +1,14 @@
 package com.bookmyshow.controller.utils;
 
 import com.bookmyshow.dto.UserSignUpRequestDTO;
-import com.bookmyshow.dto.UserSignUpResponseDTO;
-import com.bookmyshow.model.User;
+import org.springframework.http.ResponseEntity;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-public class UserControllerUtil {
+public class ControllerUtil {
     /* public static void validateUserSignUpRequestDTO(UserSignUpRequestDTO userSignUpRequestDTO){
         // Validation Logic, If anything fails, throw an exception
         // Validate name
@@ -61,5 +60,9 @@ public class UserControllerUtil {
             }
             throw new IllegalArgumentException(errorMessage.toString());
         }
+    }
+
+    public static Boolean validateTicketId(Long ticketId) {
+        return (ticketId == null || ticketId <= 0);
     }
 }
