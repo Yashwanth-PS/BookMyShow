@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class TicketResponseDTO {
     private double totalAmount;
-    private LocalDateTime timeOfShow;
+    private LocalDateTime showTime;
     private List<String> seatNumbers;
     private String movieName;
     private String auditoriumName;
