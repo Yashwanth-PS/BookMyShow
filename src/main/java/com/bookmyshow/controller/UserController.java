@@ -1,6 +1,6 @@
 package com.bookmyshow.controller;
 
-import com.bookmyshow.controller.utils.UserControllerUtil;
+import com.bookmyshow.controller.utils.ControllerUtil;
 import com.bookmyshow.dto.UserSignInRequestDTO;
 import com.bookmyshow.dto.UserSignInResponseDTO;
 import com.bookmyshow.dto.UserSignUpRequestDTO;
@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<UserSignUpResponseDTO> signUp(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
         UserSignUpResponseDTO responseDTO = new UserSignUpResponseDTO();
         try {
-            UserControllerUtil.validateUserSignUpRequestDTO(userSignUpRequestDTO);
+            ControllerUtil.validateUserSignUpRequestDTO(userSignUpRequestDTO);
             User user = userService.signUp(
                     userSignUpRequestDTO.getName(),
                     userSignUpRequestDTO.getEmail(),
