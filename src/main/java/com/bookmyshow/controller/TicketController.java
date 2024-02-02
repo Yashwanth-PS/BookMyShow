@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.bookmyshow.controller.utils.ControllerUtil.validateTicketId;
-import static com.bookmyshow.mapper.Mapper.convertTicketToTicketResponseDTO;
+import static com.bookmyshow.mapper.TicketMapper.convertTicketToTicketResponseDTO;
 
 @Slf4j
 @RestController
