@@ -1,5 +1,7 @@
 package com.bookmyshow.service;
 
+import com.bookmyshow.dto.UserSignInRequestDTO;
+import com.bookmyshow.dto.UserSignUpRequestDTO;
 import com.bookmyshow.exception.InvalidCredentialException;
 import com.bookmyshow.exception.UserAlreadyExistsException;
 import com.bookmyshow.exception.UserNotFoundException;
@@ -24,23 +26,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String email, String password) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User with given email does not exist: " + email));
-        if (passwordEncoder.matches(user.getPassword(), password)) {
+    public User login(UserSignInRequestDTO userSignInRequestDTO) {
+        Optional<User> optionalUser = userRepository.findByEmail(userSignInRequestDTO.getEmail());
+        User user = optionalUser.orElseThrow(() -> new UserNotFoundException("User with given email does not exist: " +  userSignInRequestDTO.getEmail()));
+        if (passwordEncoder.matches(user.getPassword(), user.getPassword())) {
             return user;
         } else {
-            throw new InvalidCredentialException("Invalid credentials for user with email: " + email);
+            throw new InvalidCredentialException("Invalid credentials for user with email: " + userSignInRequestDTO.getEmail());
         }
     }
     @Override
-    public User signUp(String name, String email, String password) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
+    public User signUp(UserSignUpRequestDTO userSignUpRequestDTO) {
+        Optional<User> optionalUser = userRepository.findByEmail(userSignUpRequestDTO.getEmail());
         optionalUser.ifPresent(u -> {throw new UserAlreadyExistsException("User with given email already exists: " + email);});
         User newUser = new User();
-        newUser.setPassword(passwordEncoder.encode(password));
-        newUser.setName(name);
-        newUser.setEmail(email);
+        newUser.setPassword(passwordEncoder.encode(userSignUpRequestDTO.getPassword()));
+        newUser.setName(userSignUpRequestDTO.getName());
+        newUser.setEmail(userSignUpRequestDTO.getEmail());
         return userRepository.save(newUser);
     }
 }
